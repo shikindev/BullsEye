@@ -17,17 +17,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var hitMeButtonOutlet: UIButton!
     @IBOutlet weak var infoButtonOutlet: UIButton!
     @IBOutlet weak var sliderOutlet: UISlider!
+    @IBOutlet weak var backImageView: UIImageView!
+    
     
     var currentValue = 50
     var targerValue = 0
     var score = 0
     var round = 0
-    
-    
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +45,9 @@ class ViewController: UIViewController {
     @IBAction func hitmeAlertAction(_ sender: UIButton) {
         if currentValue == targerValue {
             let alert = UIAlertController(title: "Oh my god", message: "You are right" + "\n +50 points", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Once more", style: .default, handler: nil)
+            let action = UIAlertAction(title: "Once more", style: .default) { _ in
+                self.startNewRound()
+            }
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
             score += 50
@@ -57,10 +55,10 @@ class ViewController: UIViewController {
             scoreLabel.text = "\(score)"
             roundLabel.text = "\(round)"
             
-            startNewRound()
+            
         } else {
             wrongChoise()
-            startNewRound()
+            
         }
     }
     @IBAction func startOverAction(_ sender: UIButton) {
@@ -77,7 +75,9 @@ class ViewController: UIViewController {
     }
     
     func wrongChoise() {
-        let action = UIAlertAction(title: "Try again", style: .default, handler: nil)
+        let action = UIAlertAction(title: "Try again", style: .default) { _ in
+            self.startNewRound()
+        }
         let alert = UIAlertController(title: "Bad job", message: "The value of the slider is:  \(currentValue)" + "\n The target value is \(targerValue)", preferredStyle: .alert)
         alert.addAction(action)
         
